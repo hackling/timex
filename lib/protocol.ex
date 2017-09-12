@@ -211,6 +211,7 @@ defimpl Timex.Protocol, for: Any do
   def to_unix(%{__struct__: _} = d), do: Timex.to_unix(Map.from_struct(d))
   def to_unix(_datetime), do: {:error, :invalid_date}
 
+  def to_date(%Timex.AmbiguousDateTime{} = _), do: {:error, :ambiguous_datetime}
   def to_date(%{__struct__: _} = d), do: Timex.to_date(Map.from_struct(d))
   def to_date(_datetime), do: {:error, :invalid_date}
 

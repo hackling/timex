@@ -4,6 +4,13 @@ defmodule ConversionTests do
 
   ## Date conversions
 
+  test "converting ambiguous datetimes" do
+    %Timex.AmbiguousDateTime{} = datetime = Timex.to_datetime({{1895,12,31}, {23,55,0}}, "Asia/Taipei")
+    expected = {:error, :ambiguous_datetime}
+    result = Timex.to_date(datetime)
+    assert expected == result
+  end
+
   test "Date to_gregorian_seconds" do
     assert Duration.to_seconds(Duration.epoch()) == Timex.to_gregorian_seconds(Timex.epoch())
   end
